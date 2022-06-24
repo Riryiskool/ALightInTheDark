@@ -156,8 +156,8 @@
     <Compile Include="Assets\AstarPathfindingProject\Core\Misc\GraphUpdateProcessor.cs" />
     <Compile Include="Assets\AstarPathfindingProject\Generators\Base.cs" />
     <Compile Include="Assets\AstarPathfindingProject\Generators\Utilities\ObjImporter.cs" />
-    <Compile Include="Assets\AstarPathfindingProject\Core\PathHandler.cs" />
     <Compile Include="Assets\AstarPathfindingProject\Pathfinders\ABPath.cs" />
+    <Compile Include="Assets\AstarPathfindingProject\Core\PathHandler.cs" />
     <Compile Include="Assets\AstarPathfindingProject\Core\Misc\PathReturnQueue.cs" />
     <Compile Include="Assets\AstarPathfindingProject\Core\astarclasses.cs" />
     <Compile Include="Assets\AstarPathfindingProject\TurnBased\SingleNodeBlocker.cs" />

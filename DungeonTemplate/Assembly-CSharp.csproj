@@ -54,14 +54,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\LightController.cs" />
     <Compile Include="Assets\Scripts\EnemyController.cs" />
     <Compile Include="Assets\Scripts\ProjectileController.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\HUDController.cs" />
     <Compile Include="Assets\Scripts\ExitController.cs" />
-    <Compile Include="Assets\Scripts\DetectionController.cs" />
-    <Compile Include="Assets\Scripts\LightController.cs" />
     <Compile Include="Assets\StayOnPlayer.cs" />
+    <Compile Include="Assets\Scripts\DetectionController.cs" />
+    <Compile Include="Assets\Scripts\PlayButton.cs" />
+    <Compile Include="Assets\Scripts\DontDestroyAudio.cs" />
     <Compile Include="Assets\CoalBehavior.cs" />
   </ItemGroup>
   <ItemGroup>

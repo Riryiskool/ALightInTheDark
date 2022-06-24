@@ -72,8 +72,7 @@ public class PlayerController : MonoBehaviour
         
         if (!inLight)
         {
-            
-
+            CancelInvoke("SanityAdd");
             sanityReductionTimer += Time.deltaTime;
 
             if (sanityReductionTimer >= sanityTimer)
@@ -99,6 +98,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             torch.SetActive(true);
+            torch.GetComponent<CircleCollider2D>().enabled = true;
         }
 
         fuelReductionTimer += Time.deltaTime;
@@ -185,9 +185,16 @@ public class PlayerController : MonoBehaviour
             if (!torchOn)
             {
                 inLight = false;
-                CancelInvoke("SanityAdd");
             }
         }
+
+        if (collision.CompareTag("Torch"))
+        {
+            inLight = false;
+            torchOn = false;
+            collision.gameObject.GetComponent<CircleCollider2D>().enabled = false;
+        }
+        
     }
 
     // This is only here because Unity is kinda dumb and won't let you put in functions directly into InvokeRepeating >:(
