@@ -65,6 +65,7 @@
     <Compile Include="Assets\Scripts\PlayButton.cs" />
     <Compile Include="Assets\Scripts\DontDestroyAudio.cs" />
     <Compile Include="Assets\CoalBehavior.cs" />
+    <Compile Include="Assets\RandomNoises.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

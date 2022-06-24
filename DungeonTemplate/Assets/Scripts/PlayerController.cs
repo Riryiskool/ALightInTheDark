@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject torch;
 
     Rigidbody2D rb;
-    Animator animator;
+    //Animator animator;
     float attackTimer = 0;
     public bool inLight;
     bool torchOn;
@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
+        //animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -57,8 +57,8 @@ public class PlayerController : MonoBehaviour
         {
             rb.velocity = new Vector2(0, 0);
         }
-        animator.SetFloat("Horizontal", rb.velocity.x);
-        animator.SetFloat("Vertical", rb.velocity.y);
+        //animator.SetFloat("Horizontal", rb.velocity.x);
+        //animator.SetFloat("Vertical", rb.velocity.y);
 
         if (attackTimer <= 0)
         {
@@ -89,6 +89,7 @@ public class PlayerController : MonoBehaviour
         if (GameManager.Instance.GetSanity() == 0)
         {
             witch.SetActive(true);
+            witch.GetComponent<AudioSource>().enabled = true;
         }
 
         if (GameManager.Instance.GetFuel() == 0)
