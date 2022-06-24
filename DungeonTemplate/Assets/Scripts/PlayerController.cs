@@ -7,10 +7,20 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float speed = 7f;
     [SerializeField] GameObject projectile;
     [SerializeField] float attackInterval = 0.5f;
+    [SerializeField] GameObject witch;
+    [SerializeField] GameObject torch;
 
     Rigidbody2D rb;
     Animator animator;
     float attackTimer = 0;
+    public bool inLight;
+    bool torchOn;
+
+    float sanityReductionTimer = 0f;
+    [SerializeField] float sanityTimer = .5f;
+
+    float fuelReductionTimer = 0f;
+    [SerializeField] float fuelTimer = .5f;
 
     void Start()
     {
@@ -58,6 +68,47 @@ public class PlayerController : MonoBehaviour
         {
             attackTimer -= Time.deltaTime;
         }
+
+        
+        if (!inLight)
+        {
+            
+
+            sanityReductionTimer += Time.deltaTime;
+
+            if (sanityReductionTimer >= sanityTimer)
+            {
+                GameManager.Instance.ReduceSanity(3);
+                sanityReductionTimer = 0f;
+            }
+        }
+        else
+        {
+            sanityReductionTimer = 0f;
+        }
+        
+        if (GameManager.Instance.GetSanity() == 0)
+        {
+            witch.SetActive(true);
+        }
+
+        if (GameManager.Instance.GetFuel() == 0)
+        {
+            torch.SetActive(false);
+        }
+        else
+        {
+            torch.SetActive(true);
+        }
+
+        fuelReductionTimer += Time.deltaTime;
+
+        if (fuelReductionTimer >= fuelTimer)
+        {
+            fuelReductionTimer = 0f;
+            GameManager.Instance.ReduceFuel(5);
+        }
+        
     }
     private void Attack()
     {
@@ -86,10 +137,63 @@ public class PlayerController : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        /*
         if (collision.CompareTag("Gem"))
         {
             GameManager.Instance.AddGems(1);
             Destroy(collision.gameObject);
         }
+        */
+
+        if (collision.CompareTag("Light"))
+        {
+            inLight = true;
+            InvokeRepeating("SanityAdd", .25f, .25f);
+
+        }
+
+        if (collision.CompareTag("Torch"))
+        {
+            inLight = true;
+            torchOn = true;
+            InvokeRepeating("SanityAdd", .25f, .25f);
+
+        }
+
+        if (collision.CompareTag("Coal"))
+        {
+            GameManager.Instance.AddFuel(30);
+            collision.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+            collision.gameObject.GetComponent<CircleCollider2D>().enabled = false;
+            collision.gameObject.GetComponent<CoalBehavior>().Respawner();
+        }
+
+        
+        if (collision.CompareTag("Fire"))
+        {
+            GameManager.Instance.LightFire();
+            collision.gameObject.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255);
+        }
+        
     }
+
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Light"))
+        {
+            if (!torchOn)
+            {
+                inLight = false;
+                CancelInvoke("SanityAdd");
+            }
+        }
+    }
+
+    // This is only here because Unity is kinda dumb and won't let you put in functions directly into InvokeRepeating >:(
+    private void SanityAdd()
+    {
+        GameManager.Instance.AddSanity(3);
+    }
+
 }

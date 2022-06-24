@@ -7,10 +7,11 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    private int gems = 0;
-    private int savedGems = 0;
     [SerializeField] int health = 100;
-
+    [SerializeField] int fuel = 100;
+    [SerializeField] int sanity = 100;
+    [SerializeField] int fires = 0;
+    [SerializeField] bool win = false;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -23,14 +24,38 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(this.gameObject);
         }
     }
-    public int GetGems()
-    {
-        return gems;
-    }
 
-    public void AddGems(int amount)
+    void Update()
     {
-        gems += amount;
+        if (health > 100)
+        {
+            health = 100;
+        }
+
+        if (sanity > 100)
+        {
+            sanity = 100;
+        }
+
+        if (fuel > 100)
+        {
+            fuel = 100;
+        }
+
+        if (sanity < 0)
+        {
+            sanity = 0;
+        }
+
+        if (fuel < 0)
+        {
+            fuel = 0;
+        }
+
+        if (fires == 5)
+        {
+            win = true;
+        }
     }
 
     public int GetHealth()
@@ -44,13 +69,55 @@ public class GameManager : MonoBehaviour
 
         if (health <= 0)
         {
-            health = 100;
-            gems = savedGems;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            ResetLevel();
         }
     }
-    public void SaveGems()
+
+    public void ResetLevel()
     {
-        savedGems = gems;
+        health = 100;
+        sanity = 100;
+        fuel = 100;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public int GetFuel()
+    {
+        return fuel;
+    }
+
+    public int GetSanity()
+    {
+        return sanity;
+    }
+
+    public void ReduceFuel(int amount)
+    {
+        fuel -= amount;
+    }
+
+    public void ReduceSanity(int amount)
+    {
+        sanity -= amount;
+    }
+
+    public void AddFuel(int amount)
+    {
+        fuel += amount;
+    }
+
+    public void AddSanity(int amount)
+    {
+        sanity += amount;
+    }
+
+    public void LightFire()
+    {
+        fires++;
+    }
+
+    public bool CheckVictory()
+    {
+        return win;
     }
 }

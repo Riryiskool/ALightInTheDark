@@ -7,6 +7,11 @@ TagManager:
   - Gem
   - Wall
   - Enemy
+  - Light
+  - Witch
+  - Coal
+  - Fire
+  - Torch
   layers:
   - Default
   - TransparentFX

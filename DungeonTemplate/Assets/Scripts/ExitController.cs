@@ -9,7 +9,7 @@ public class ExitController : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            GameManager.Instance.SaveGems();
+            //GameManager.Instance.SaveGems();
 
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }

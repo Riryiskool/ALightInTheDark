@@ -6,11 +6,16 @@ using UnityEngine.UI;
 public class HUDController : MonoBehaviour
 {
     [SerializeField] Text gemsText;
-    [SerializeField] Text healthText;
+    [SerializeField] Slider healthBar;
+    [SerializeField] Slider sanityBar;
+    [SerializeField] Slider fuelBar;
+
     void Update()
     {
-        gemsText.text = "GEMS: " + GameManager.Instance.GetGems();
-        healthText.text = "HEALTH: " + GameManager.Instance.GetHealth();
+        //gemsText.text = "GEMS: " + GameManager.Instance.GetGems();
 
+        healthBar.value = GameManager.Instance.GetHealth();
+        sanityBar.value = GameManager.Instance.GetSanity();
+        fuelBar.value = GameManager.Instance.GetFuel();
     }
 }
