@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] int sanity = 100;
     [SerializeField] int fires = 0;
     [SerializeField] bool win = false;
+    [SerializeField] bool lose = false;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -120,4 +121,16 @@ public class GameManager : MonoBehaviour
     {
         return win;
     }
+
+    public bool CheckLoss()
+    {
+        return lose;
+    }
+
+    public void Lose()
+    {
+        lose = true;
+    }
+
+    
 }
